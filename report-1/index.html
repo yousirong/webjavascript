@@ -9,6 +9,17 @@
   <body>
     <h1>Report 1</h1>
 
+    <SCRIPT LANGUAGE="JavaScript">
+      function check() {
+        if (document.search.search.value == "") {
+          alert('검색어를 입력하여 주세요.');
+          document.search.search.focus();
+          return false;
+        }
+        document.search.submit();
+      }
+    </SCRIPT>
+
     <div id="contact">
       <table>
         <thead>
@@ -30,5 +41,14 @@
     <script src="randomuser.js"></script>
     <script src="app.js"></script>
     <!--<script src="list-table.js"></script>-->
+    <!-- 새로 추가한 부분  -->
+    <form action=address_search.html name=search method=post>
+      <input type=text name=search>
+      <input type=button size=10 name=ok value=검색 onclick="check()">
+    </form>
+    <form action=findcontent.html>
+      <input type=submit value=입력페이지로>
+    </form>
+
   </body>
 </html>
