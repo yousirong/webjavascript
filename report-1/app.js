@@ -71,18 +71,20 @@ function listConsole() {
 contactList.forEach((row) => {
   create(row)
 })
-
+// 3. 데이터 추가 -- 더미데이터 3명 {name, email, phone}, 모든 학생이 다름.
 create({ name: "cskim", email: "cskim@hufs.ac.kr", phone: "031-330-4365" })
 create({ name: "cskim", email: "cskim@hufs-gsuite.kr", phone: "010-111-1234" })
 create({ name: "D.va", email: "D.vaonline@overwatch.kr", phone: "010-5898-7891" })
 create({ name: "McCree", email: "JesseMeCree@overwatch.kr", phone: "010-4446-7778" })
 create({ name: "Ana", email: "AnaAmari@overwatch.kr", phone: "010-111-1234" })
+// 4. 데이터 추가 -- 마지막, 학생 본인 name(id, 이름), email(실제), phone(가상)
 create({ name: "yousirong", email: "diziyong1523@gmail.co.kr", phone: "010-5389-7846" })
 listConsole()
 
 read({ name: "cskim" })
 
 update({ name: "cskim" }, { phone: "010-111-1234" })
+
 listConsole()
 
 remove({ name: "cskim" })
