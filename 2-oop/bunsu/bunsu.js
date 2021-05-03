@@ -51,6 +51,7 @@ class Bunsu extends Comparable {
   }
 
   minus(right) {
+    // binary - operator (a - b)
     return new Bunsu(this.bunja * right.bunmo - right.bunja * this.bunmo, this.bunmo * right.bunmo)
   }
 
@@ -63,10 +64,12 @@ class Bunsu extends Comparable {
   }
 
   negative() {
+    // unary - operator (-a)
     return new Bunsu(-this.bunja, this.bunmo)
   }
 
   next() {
+    // ++ operator
     this.bunja += this.bunmo
     return this
   }
@@ -84,6 +87,8 @@ console.log(`Value of d is ${d}`)
 
 // Test arithmetic instructions
 c = new Bunsu(3, 4)
+console.log(`Value of c is ${c}`)
+console.log(`Value of d is ${d}`)
 // d = b + c
 d = b.plus(c)
 console.log(`4 + 3/4 is ${d}`)
@@ -94,7 +99,7 @@ console.log(`4 - 3/4 is ${d}`)
 let e = b.plus(c.negative())
 console.log(`Done with negation e = ${e}`)
 
-if (d === e) {
+if (d.compareTo(e) === 0) {
   console.log(`Subtraction test successful.`)
 } else {
   console.log(`Subtraction test failed.`)
