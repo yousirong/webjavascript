@@ -1,10 +1,20 @@
 // Project 2 -- Use Local Storage(localStore)
-function listConsole(phoneBook) {
-  phoneBook.list().forEach((row) => {
+// function listConsole(phoneBook) {
+//   PHONE_BOOK.contactList.forEach((row) => {
+//     console.log(JSON.stringify(row))
+//   })
+// }
+let contactList = RANDOM_USERS.results.map((user) => {
+  const name = `${user.name.first} ${user.name.last}`
+  const email = user.email
+  const phone = user.phone
+  return { name, email, phone }
+})
+function listConsole(row) {
+  contactList.forEach((row) => {
     console.log(JSON.stringify(row))
   })
 }
-
 function listHTML(phoneBook) {
   const tbody = document.querySelector('#contact-table-body')
   const tbodyText = phoneBook
@@ -18,24 +28,40 @@ function listHTML(phoneBook) {
 }
 
 // Main Routine
-let PHOME_BOOK = new PhoneBook('CONTACT_DB')
-
+let PHONE_BOOK = new PhoneBook('phoneBookDB')  // CONTACT_DB -> PHONEBOOK_DB
+console.log(PHONE_BOOK)
+listConsole(PHONE_BOOK)
 console.log('After Initial Create')
+contactList.forEach((row) => {
+  PHONE_BOOK.create(row)
+})
+listConsole(PHONE_BOOK)
+PHONE_BOOK.create({ name: 'cskim', email: 'cskim@hufs.ac.kr', phone: '031-330-4365' })
+PHONE_BOOK.create({ name: 'cskim', email: 'cskim@hufs-gsuite.kr', phone: '010-111-1234' })
+// 3. 데이터 추가 -- 더미데이터 3명 {name, email, phone}, 모든 학생이 다름.
+PHONE_BOOK.create({ name: "D.va", email: "D.vaonline@overwatch.kr", phone: "010-5898-7891" })
+PHONE_BOOK.create({ name: "McCree", email: "JesseMeCree@overwatch.kr", phone: "010-4446-7778" })
+PHONE_BOOK.create({ name: "Ana", email: "AnaAmari@overwatch.kr", phone: "010-111-1234" })
+// 4. 데이터 추가 -- 마지막, 학생 본인 name(id, 이름), email(실제), phone(가상)
+PHONE_BOOK.create({ name: "yousirong", email: "diziyong1523@gmail.co.kr", phone: "010-5389-7846" })
 
-listConsole(PHOME_BOOK)
-PHOME_BOOK.create({ name: 'cskim', email: 'cskim@hufs.ac.kr', phone: '031-330-4365' })
-PHOME_BOOK.create({ name: 'cskim', email: 'cskim@hufs-gsuite.kr', phone: '010-111-1234' })
 console.log('After add 2 cskim ')
-listConsole(PHOME_BOOK)
+listConsole(PHONE_BOOK)
 
-PHOME_BOOK.read({ name: 'cskim' })
+PHONE_BOOK.read({ name: 'cskim' })
+listConsole(PHONE_BOOK)
 
-PHOME_BOOK.update({ name: 'cskim' }, { phone: '010-555-5555' })
+PHONE_BOOK.update({ name: 'cskim' }, { phone: '010-555-5555' })
 console.log('After Update cskim')
-listConsole(PHOME_BOOK)
+listConsole(PHONE_BOOK)
+
+PHONE_BOOK.update({ name: 'yousirong' }, { phone: '010-7777-7777' })
+console.log('After Update yousirong')
+listConsole(PHONE_BOOK)
+// PHONE_BOOK.localStorage.clear()
 
 //remove({ name: 'cskim' })
 //console.log('After Remove cskim')
 //listConsole()
 
-listHTML(PHOME_BOOK)
+listHTML(PHONE_BOOK)

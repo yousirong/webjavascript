@@ -33,8 +33,6 @@ function update(keyObj, valueObj) {
   const newDB = CONTACT_DB.filter((row) => row.name !== keyObj.name)
   // const newDB = CONTACT_DB.filter((row) => row.email !== keyObj.email)
   // const newDB = CONTACT_DB.filter((row) => row.phone !== keyObj.phone)
-  
-
   updMember = { ...updMember, ...valueObj }
   console.log(updMember)
   CONTACT_DB = [...newDB, updMember]
@@ -102,7 +100,7 @@ listConsole()
 // console.log('After Update yousid')
 // listConsole()
 
-remove({ name: 'cskim' })
+//remove({ name: 'cskim' })
 console.log('After Remove cskim')
 listConsole()
 
