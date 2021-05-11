@@ -1,9 +1,9 @@
-const Card = require('./card')
+import Card from './card'
 
 const LINE_MAX = 13
 
-function printList(list) {
-  let res = []
+function printList(list: Card[]): void {
+  let res: Card[] = []
   list.forEach((card, i) => {
     res.push(card)
     i += 1
@@ -15,7 +15,7 @@ function printList(list) {
 }
 // Main
 // Test for a Card Deck
-let deck = []
+let deck: Card[] = []
 for (let s = Card.CLUB; s <= Card.SPADE; s++) {
   for (let r = Card.ACE; r <= Card.KING; r++) {
     deck.push(new Card(s, r))
@@ -23,7 +23,7 @@ for (let s = Card.CLUB; s <= Card.SPADE; s++) {
 }
 console.log('---init---')
 printList(deck)
-console.log('---sorted string compare---')
+console.log('---sorted---')
 printList(deck.sort())
 console.log('---sorted rank compare---')
 printList(deck.sort(Card.compare))

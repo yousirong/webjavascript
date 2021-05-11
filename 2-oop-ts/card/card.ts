@@ -1,6 +1,6 @@
-const Comparable = require('./comparable')
+import Comparable from './comparable'
 
-class Card extends Comparable {
+export default class Card implements Comparable {
   static ACE = 1
   static JACK = 11
   static QUEEN = 12
@@ -11,14 +11,15 @@ class Card extends Comparable {
   static HEART = 3
   static SPADE = 4
 
-  constructor(s, r) {
-    super()
+  suit: number
+  rank: number
+  constructor(s: number, r: number) {
     this.suit = s
     this.rank = r
   }
 
   toString() {
-    let image
+    let image: string
     switch (this.suit) {
       case Card.CLUB:
         image = 'CL-'
@@ -55,18 +56,26 @@ class Card extends Comparable {
     return image
   }
 
-  compareTo(right) {
-    const lrank = this.rank === Card.ACE ? Card.KING + 1 : this.rank
-    const rrank = right.rank === Card.ACE ? Card.KING + 1 : right.rank
+  compareTo(right: Card) {
+    let lrank: number, rrank: number
+    if (this.rank === Card.ACE) lrank = Card.KING + 1
+    else lrank = this.rank
 
-    return lrank - rrank
+    if (right.rank === Card.ACE) rrank = Card.KING + 1
+    else rrank = right.rank
+
+    let diff = lrank - rrank
+
+    return diff
   }
-  static compare(left, right) {
-    const lrank = left.rank === Card.ACE ? Card.KING + 1 : left.rank
-    const rrank = right.rank === Card.ACE ? Card.KING + 1 : right.rank
+  static compare(left: Card, right: Card) {
+    let lrank = left.rank
+    let rrank = right.rank
+    if (lrank === Card.ACE) lrank = Card.KING + 1
+    if (rrank === Card.ACE) rrank = Card.KING + 1
 
-    return lrank - rrank
+    let diff = lrank - rrank
+
+    return diff
   }
 }
-
-module.exports = Card

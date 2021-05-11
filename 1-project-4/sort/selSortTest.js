@@ -1,4 +1,5 @@
 const Card = require('./card')
+const selSort = require('./selSort')
 
 const LINE_MAX = 13
 
@@ -13,8 +14,8 @@ function printList(list) {
     }
   })
 }
+
 // Main
-// Test for a Card Deck
 let deck = []
 for (let s = Card.CLUB; s <= Card.SPADE; s++) {
   for (let r = Card.ACE; r <= Card.KING; r++) {
@@ -23,9 +24,7 @@ for (let s = Card.CLUB; s <= Card.SPADE; s++) {
 }
 console.log('---init---')
 printList(deck)
-console.log('---sorted string compare---')
-printList(deck.sort())
-console.log('---sorted rank compare---')
-printList(deck.sort(Card.compare))
-console.log('---sorted rank compare---')
-printList(deck.sort((left, right) => left.compareTo(right)))
+
+let sorted = selSort(deck)
+console.log('---sorted---')
+printList(sorted)

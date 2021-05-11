@@ -1,10 +1,10 @@
-const Card = require('./card')
-const FiveCards = require('./fivecards')
+import Card from './card'
+import FiveCards from './fivecards'
 
 const LINE_MAX = 13
 
-function printList(list) {
-  let res = []
+function printList(list: Card[]): void {
+  let res: Card[] = []
   list.forEach((card, i) => {
     res.push(card)
     i += 1
@@ -15,10 +15,10 @@ function printList(list) {
   })
 }
 
-function generate5CardList(gencount) {
+function generate5CardList(gencount: number): FiveCards[] {
   // Generate List<FiveCards>
-  let p5CardsList = []
-  let deckCard = []
+  let p5CardsList: FiveCards[] = []
+  let deckCard: Card[] = []
 
   // Make a Card Deck
   for (let s = Card.CLUB; s <= Card.SPADE; s++)
@@ -33,13 +33,13 @@ function generate5CardList(gencount) {
     // Make a Card Deck
     let indDeck = 0
 
-    let fc = new Array(5)
+    let fc = new Array<Card>(5)
     let ipos = 0
     while (indDeck < deckCard.length) {
       fc[ipos] = deckCard[indDeck]
       indDeck++
       ipos++
-      if (ipos === 5) {
+      if (ipos == 5) {
         p5CardsList.push(new FiveCards(fc))
         ipos = 0
       }
@@ -47,9 +47,11 @@ function generate5CardList(gencount) {
   }
   return p5CardsList
 }
-function suffle(list) {
+function suffle(list: Card[]) {
   const SUFFLECOUNT = 100
 
+  //println "List before Suffle"
+  //printList(list);
   let oneOrzero = 0
   let lsize = list.length
   let ind = 0
@@ -65,8 +67,10 @@ function suffle(list) {
       ind %= lsize
     }
   }
+  //println "List after Suffle"
+  //printList(list);
 }
-function printFiveCardsList(fcList) {
+function printFiveCardsList(fcList: FiveCards[]) {
   fcList.forEach((fc, i) => {
     console.log(`${i + 1} ${fc}`)
   })
@@ -77,7 +81,3 @@ function printFiveCardsList(fcList) {
 let list5card = generate5CardList(10)
 console.log('---init 5 cards list---')
 printFiveCardsList(list5card)
-console.log('---sorted---')
-printFiveCardsList(list5card.sort())
-console.log('---sorted use compareTo---')
-printFiveCardsList(list5card.sort((left, right) => left.compareTo(right)))

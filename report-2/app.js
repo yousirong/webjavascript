@@ -1,9 +1,6 @@
 // Project 2 -- Use Local Storage(localStore)
-// function listConsole(phoneBook) {
-//   PHONE_BOOK.contactList.forEach((row) => {
-//     console.log(JSON.stringify(row))
-//   })
-// }
+// report-1에서 update 부분을 좀더 업그레이드 했습니다.
+
 let contactList = RANDOM_USERS.results.map((user) => {
   const name = `${user.name.first} ${user.name.last}`
   const email = user.email
@@ -29,7 +26,7 @@ function listHTML(phoneBook) {
 
 // Main Routine
 let PHONE_BOOK = new PhoneBook('phoneBookDB')  // CONTACT_DB -> PHONEBOOK_DB
-console.log(PHONE_BOOK)
+console.log(PHONE_BOOK)   // 처음 DB 데이터 확인용
 listConsole(PHONE_BOOK)
 console.log('After Initial Create')
 contactList.forEach((row) => {
@@ -51,17 +48,41 @@ listConsole(PHONE_BOOK)
 PHONE_BOOK.read({ name: 'cskim' })
 listConsole(PHONE_BOOK)
 
+/* cskim의 이름을 가진 데이터에서 phone의 value값을 010-555-5555으로 바꿉니다. */
 PHONE_BOOK.update({ name: 'cskim' }, { phone: '010-555-5555' })
 console.log('After Update cskim')
 listConsole(PHONE_BOOK)
 
+/* yousirong의 이름을 가진 데이터에서 phone의 value값을 010-7777-7777으로 바꿉니다.*/
 PHONE_BOOK.update({ name: 'yousirong' }, { phone: '010-7777-7777' })
 console.log('After Update yousirong')
 listConsole(PHONE_BOOK)
-// PHONE_BOOK.localStorage.clear()
 
+// PHONE_BOOK.localStorage.clear()    /* localStorage의 내용들을 모두 비우는 함수 */
+/* Phone데이터에서 010-7777-7777을 가진 데이터를 찾아 name을 yousi로 바꿉니다. */
+PHONE_BOOK.update({ phone: '010-7777-7777' }, { name: 'yousi' })
+console.log('After Update yousi')
+listConsole(PHONE_BOOK)
+
+/* email데이터에서 diziyong1523@gmail.co.kr을 가진 데이터를 찾아 name을 yousicom로 바꿉니다.*/
+PHONE_BOOK.update({ email: "diziyong1523@gmail.co.kr" }, { name: 'yousicom' })
+console.log('After Update yousid')
+listConsole(PHONE_BOOK)
+
+/* name데이터에서 cskim을 찾아서 데이터를 DB에서 지웁니다. */
 //remove({ name: 'cskim' })
 //console.log('After Remove cskim')
 //listConsole()
 
+/* phone데이터에서 010-7777-7777을 찾아 데이터를 DB에서 지웁니다.*/
+// remove({ phone: '010-7777-7777' })
+// console.log('After Remove yousirong')
+// listConsole()
+
+/* email데이터에서 diziyong1523@gmail.co.kr을 찾아 데이터를 DB에서 지웁니다.*/
+/* remove({  email: "diziyong1523@gmail.co.kr" }) */
+// console.log('After Remove yousirong email')
+// listConsole()
+
 listHTML(PHONE_BOOK)
+
