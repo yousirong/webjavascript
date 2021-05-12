@@ -1,5 +1,6 @@
-const Comparable = require('./comparable')
-const Card = require('./card')
+const Comparable = require("./comparable")
+const CardComparator = require("./card-comparator")
+const selSort = require("./selSort")
 
 class FiveCards extends Comparable {
   constructor(cards) {
@@ -8,7 +9,7 @@ class FiveCards extends Comparable {
     cards.forEach((card) => {
       this.fiveCards.push(card)
     })
-    //FiveCards.reorder()
+    this.reorder()
   }
 
   compareTo(right) {
@@ -16,13 +17,12 @@ class FiveCards extends Comparable {
   }
 
   toString() {
-    let allCardString = this.fiveCards.join(', ')
+    let allCardString = this.fiveCards.join(", ")
     return `[${allCardString}]`
   }
-  //reorder() {
-  //  let sorter = new SelSort()
-  //  this.fiveCards = sorter.sort(fiveCards)
-  //}
+  reorder() {
+    this.fiveCards = selSort(this.fiveCards, new CardComparator())
+  }
 }
 
 module.exports = FiveCards
