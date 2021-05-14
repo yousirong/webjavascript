@@ -11,7 +11,7 @@ class FiveCards extends Comparable {
     })
     this.reorder()
   }
-
+// -------------------------------이부분 고쳐야돔.....................
   compareTo(right) {
     return this.fiveCards[0].compareTo(right.fiveCards[0])
   }

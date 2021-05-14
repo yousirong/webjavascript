@@ -157,14 +157,22 @@ list5card.push(new FiveCards(nopair))
 
 console.log('---init 5 cards list---')
 printFiveCardsList(list5card)
+console.log('----------------------------') 
+console.log('----------------------------') 
 
 //console.log('---sorted---')
 //printFiveCardsList(list5card.sort())
 console.log('---sorted use compareTo---')
 printFiveCardsList(list5card.sort((left, right) => left.compareTo(right)))
+console.log('----------------------------') 
+console.log('----------------------------') 
+
 
 console.log('---sorted use selSort---')
 printFiveCardsList(selSort(list5card))
+console.log('----------------------------') 
+console.log('----------------------------') 
 
 console.log('---sorted use quickSort---')
 printFiveCardsList(quickSort(list5card))
+
