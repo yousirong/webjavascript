@@ -80,7 +80,7 @@ function printFiveCardsList(fcList) {
 
 // Main
 // Test for Five Cards List
-let list5card = generate5CardList(10)
+let list5card = generate5CardList(1)  // -> 10
 
 // Add more sample data
 const fourCards = [
