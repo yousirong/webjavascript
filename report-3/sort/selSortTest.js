@@ -1,4 +1,4 @@
-const Card = require('./card')
+const Card = require('./sort/card')
 const selSort = require('./selSort')
 
 const LINE_MAX = 13

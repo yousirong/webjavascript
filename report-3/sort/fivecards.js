@@ -15,7 +15,6 @@ class FiveCards extends Comparable {
   compareTo(right) {
     return this.fiveCards[0].compareTo(right.fiveCards[0])
   }
-
   toString() {
     let allCardString = this.fiveCards.join(', ')
     return `[${allCardString}]`
