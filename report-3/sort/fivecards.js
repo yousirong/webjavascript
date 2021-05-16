@@ -11,14 +11,13 @@ class FiveCards extends Comparable {
     })
     this.reorder()
   }
-// -------------------------------이부분 고쳐야돔.....................
-  compareTo(right) {
-    for(let i = 0; i<this.fiveCards.length; i++){
+// ------------------------------추가한 부분-----------------------------
+// 3. [0]번 카드만 비교 --> [0]번이 같으면 [1] 비교, [1]도 같으면 [2] 비교...
+  compareTo(right) {  
       if(this.fiveCards[i].compareTo(right.fiveCards[i]) !== 0){
         return this.fiveCards[i].compareTo(right.fiveCards[i])
       }
     }
-  }
   // compareTo(right){
   //   return this.fiveCards[0].compareTo(right.fiveCards[0])
   // }

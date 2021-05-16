@@ -2,7 +2,8 @@ function quickSort(list) {
   let n = list.length
   //console.log(n)
   if (n < 100) return list
-  
+  // list.length가 2보다 작을 경우 return list 하면 stack overflow 발생 
+  // n < 100 으로 변경함
   //console.log(list)
   // let list1 = new Array(0);
   // let list2 = new Array(0);
