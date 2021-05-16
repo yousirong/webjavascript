@@ -1,4 +1,4 @@
-const Card = require('../sort/card')
+const Card = require('./card')
 const quickSort = require('./quickSort')
 
 const LINE_MAX = 13
@@ -22,10 +22,13 @@ for (let s = Card.CLUB; s <= Card.SPADE; s++) {
     deck.push(new Card(s, r))
   }
 }
+
 console.log('---init---')
 printList(deck)
+console.log('------------------------------------------------')
+//console.log(deck)
 
-let sorted = quickSort(deck)
+let sorted=quickSort(deck)
 console.log('---sorted---')
 //console.log(sorted)
 printList(sorted)

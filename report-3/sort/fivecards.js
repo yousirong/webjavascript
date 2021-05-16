@@ -13,8 +13,15 @@ class FiveCards extends Comparable {
   }
 // -------------------------------이부분 고쳐야돔.....................
   compareTo(right) {
-    return this.fiveCards[0].compareTo(right.fiveCards[0])
+    for(let i = 0; i<this.fiveCards.length; i++){
+      if(this.fiveCards[i].compareTo(right.fiveCards[i]) !== 0){
+        return this.fiveCards[i].compareTo(right.fiveCards[i])
+      }
+    }
   }
+  // compareTo(right){
+  //   return this.fiveCards[0].compareTo(right.fiveCards[0])
+  // }
   toString() {
     let allCardString = this.fiveCards.join(', ')
     return `[${allCardString}]`
