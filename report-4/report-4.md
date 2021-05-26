@@ -1,6 +1,10 @@
-# Poker Transform
+# Report 4
+
+## Due Date 6월 7일(월)
 
 ```
+1. report-4/pokerTransform.js 수정
+
 A,2,3,4,6 --> No Pair(1),(14),(6),(4),(3),(2) --> [1,14,6,4,3,2]
 A,2,3,5,6 --> No Pair(1),(14),(6),(5),(3),(2)) --> [1,14,6,5,3,2]
 A,5,7,Q,K --> No Pair(1),(14),(13),(12),(7),(5) --> [1,14,13,12,7,5]
@@ -24,4 +28,17 @@ K,K,K,K,Q --> Four Card(8,13),(12) --> [8,13,12]
 K,K,K,K,A --> Four Card(8,13),(14) --> [8,13,14]
 A,2,3,4,5 --> Straight Flush(9),(5) --> [9,5]
 10,J,Q,K,A --> Straight Flush(9),(14) --> [9,14]
+
+
+현재 No Pair, One Pair, Two Pair, Four Card, Straight 가 구현 되어 있음.
+이름 참고로 Flush, Full House, Straight Flush 를 추가로 구현
+
+pokerSort.js의 샘플 데이터 이용
+
+
+2. 현재 오름차순(ASC)이나 이를 내림차순(DESC)으로 수정
 ```
+
+### 제출 -- eclass에 자신의 report-4 folder를 zip 해서 올림
+
+### 다른 부가 리포트 필요 없음

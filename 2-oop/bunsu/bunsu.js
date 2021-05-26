@@ -121,3 +121,6 @@ for (let i = 1; i <= 30; ++i) {
   console.log(` 1/1+...+1/${i} = ${h}`)
 }
 console.log(` 1/1+...+1/30 = ${h}`)
+
+a = new Bunsu(1, 1)
+console.log(`a + (++a) ${a.plus(a.next())}`)

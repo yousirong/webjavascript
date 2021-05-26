@@ -68,15 +68,19 @@ function getStraightTransform(fcList) {
   return topVal ? [5, topVal] : [0]
 }
 
+function getTripleTransform(fclist) {}
+function isFlush(fiveCards) {}
 function pokerTransform(fiveCards) {
   //fiveCards -- A FiveCards Instance
-  //console.log(fiveCards)
   let fclist = fiveCards.fiveCards.map((ca) => (ca.rank === Card.ACE ? Card.KING + 1 : ca.rank))
   //fclist -- list of fiveCards ranks
   let pokerRankList = getPairTransform(fclist)
   let tempList = getStraightTransform(fclist)
   pokerRankList = tempList[0] > pokerRankList[0] ? tempList : pokerRankList
-
+  // triple check
+  // Full house check
+  // Flush check
+  // Straight Flush check
   return pokerRankList
 }
 

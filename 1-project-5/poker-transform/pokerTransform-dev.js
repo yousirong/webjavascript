@@ -1,16 +1,31 @@
+const FiveCards = require('./fivecards')
 const Card = require('./card')
+const sampleList = require('./fivecards-sample')
 
-function getPairs(list5) {
-  //list5 -- list of five ranks
-  if (list5.length < 2) return []
+let cardList = sampleList.map((card5) => new FiveCards(card5))
+function printFiveCardsList(fcList) {
+  fcList.forEach((fc, i) => {
+    console.log(`${i + 1} ${fc}`)
+  })
+}
+printFiveCardsList(cardList)
+let rankList = cardList.map((fc) =>
+  fc.fiveCards.map((ca) => (ca.rank === Card.ACE ? Card.KING + 1 : ca.rank))
+)
+console.log(`rankList=${JSON.stringify(rankList)}`)
+
+function getPairs(fcList) {
+  if (fcList.length < 2) return []
   else {
-    if (list5[0] === list5[1]) return [list5[0]].concat(getPairs(list5.slice(2, list5.length)))
-    else return getPairs(list5.slice(1, list5.length))
+    if (fcList[0] === fcList[1]) return [fcList[0]].concat(getPairs(fcList.slice(2, fcList.length)))
+    else return getPairs(fcList.slice(1, fcList.length))
   }
 }
 
+let pairList = rankList.map(getPairs)
+console.log(`pairList=${JSON.stringify(pairList)}`)
+
 function getPairTransform(fcList) {
-  //fclist -- list of fiveCards ranks
   let pairList = getPairs(fcList)
   if (pairList.length === 0) {
     return [1, ...fcList] // no pair
@@ -28,6 +43,8 @@ function getPairTransform(fcList) {
   }
   return [1, ...fcList] // no pair
 }
+let pairTransformList = rankList.map(getPairTransform)
+console.log(`pairTransformList=${JSON.stringify(pairTransformList)}`)
 
 const isStraight = (list5) =>
   list5.reduce(
@@ -36,7 +53,6 @@ const isStraight = (list5) =>
   )
 
 function changeAceToOne(fcList) {
-  //fclist -- list of fiveCards ranks
   let resList = [...fcList]
   let aceIndex = resList.indexOf(14) // has Ace
   if (aceIndex !== -1) {
@@ -46,8 +62,6 @@ function changeAceToOne(fcList) {
   return resList
 }
 function getStraightScore(fcList) {
-  //fclist -- list of fiveCards ranks
-
   // return 0 if not straight
   // return fcList[0] if straight
   // return newList[0] if has Ace and changed to 1 is straight
@@ -61,23 +75,26 @@ function getStraightScore(fcList) {
   }
   return 0
 }
+let straightScoreList = rankList.map(getStraightScore)
+console.log(`straightScoreList=${JSON.stringify(straightScoreList)}`)
 
 function getStraightTransform(fcList) {
-  //fclist -- list of fiveCards ranks
   let topVal = getStraightScore(fcList)
   return topVal ? [5, topVal] : [0]
 }
+let straightTransformList = rankList.map(getStraightTransform)
+console.log(`straightTransformList=${JSON.stringify(straightTransformList)}`)
 
 function pokerTransform(fiveCards) {
-  //fiveCards -- A FiveCards Instance
   //console.log(fiveCards)
   let fclist = fiveCards.fiveCards.map((ca) => (ca.rank === Card.ACE ? Card.KING + 1 : ca.rank))
-  //fclist -- list of fiveCards ranks
   let pokerRankList = getPairTransform(fclist)
   let tempList = getStraightTransform(fclist)
   pokerRankList = tempList[0] > pokerRankList[0] ? tempList : pokerRankList
 
   return pokerRankList
 }
+let pokerTransformList = cardList.map(pokerTransform)
+console.log(`pokerTransformList=${JSON.stringify(pokerTransformList)}`)
 
 module.exports = pokerTransform

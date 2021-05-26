@@ -1,15 +1,42 @@
-function quickSort(list, comp) {
+function merge(list1, list2, comp) {
+  let ind1 = 0
+  let ind2 = 0
+  let list = []
+  while (ind1 < list1.length && ind2 < list2.length) {
+    if (comp(list1[ind1], list2[ind2]) < 0) {
+      list.push(list1[ind1])
+      ind1++
+    } else {
+      list.push(list2[ind2])
+      ind2++
+    }
+  }
+  while (ind1 < list1.length) {
+    list.push(list1[ind1])
+    ind1++
+  }
+  while (ind2 < list2.length) {
+    list.push(list2[ind2])
+    ind2++
+  }
+  //console.log(list)
+  return list
+}
+
+function mergeSort(list, comp) {
   if (list.length <= 1) return list
-  let piv = list[0]
-  let low = list.filter((x) => comp(x, piv) < 0)
-  let eql = list.filter((x) => comp(x, piv) === 0)
-  let high = list.filter((x) => comp(x, piv) > 0)
-  return quickSort(low, comp).concat(eql).concat(quickSort(high, comp))
+  let mid = list.length % 2 ? (list.length + 1) / 2 : list.length / 2
+  //console.log(mid)
+  let front = list.slice(0, mid)
+  let back = list.slice(mid)
+  //console.log(front)
+  //console.log(back)
+  return merge(mergeSort(front, comp), mergeSort(back, comp), comp)
 }
 
 let list = [2, 4, 6, 1, 3, 5, 4]
 //let comp = (x, y) => x - y
-let sorted = quickSort(list, (x, y) => x - y)
+let sorted = mergeSort(list, (x, y) => x - y)
 console.log(`sorted=${JSON.stringify(sorted)}`)
 
 function listComp(xl, yl, comp) {
@@ -45,7 +72,7 @@ let listToSort = [
   [6, 13, 1],
   [6, 13, 1, 1],
 ]
-let listSorted = quickSort(listToSort, (xl, yl) => listComp(xl, yl, (x, y) => x - y))
+let listSorted = mergeSort(listToSort, (xl, yl) => listComp(xl, yl, (x, y) => x - y))
 console.log(`listSorted=${JSON.stringify(listSorted)}`)
 
 //const lcomp = (comp) => (list1, list2) => listComp(list1, list2, comp)
@@ -67,7 +94,7 @@ function lcomp(comp) {
 //    return listComp(list1, list2, comp)
 //  }
 //}
-listSorted = quickSort(
+listSorted = mergeSort(
   listToSort,
   lcomp((x, y) => x - y)
 )

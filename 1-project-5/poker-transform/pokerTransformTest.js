@@ -1,4 +1,6 @@
+const FiveCards = require('./fivecards')
 const Card = require('./card')
+const sampleList = require('./fivecards-sample')
 
 function getPairs(list5) {
   //list5 -- list of five ranks
@@ -70,7 +72,6 @@ function getStraightTransform(fcList) {
 
 function pokerTransform(fiveCards) {
   //fiveCards -- A FiveCards Instance
-  //console.log(fiveCards)
   let fclist = fiveCards.fiveCards.map((ca) => (ca.rank === Card.ACE ? Card.KING + 1 : ca.rank))
   //fclist -- list of fiveCards ranks
   let pokerRankList = getPairTransform(fclist)
@@ -79,5 +80,32 @@ function pokerTransform(fiveCards) {
 
   return pokerRankList
 }
+
+let cardList = sampleList.map((card5) => new FiveCards(card5))
+function printFiveCardsList(fcList) {
+  fcList.forEach((fc, i) => {
+    console.log(`${i + 1} ${fc}`)
+  })
+}
+printFiveCardsList(cardList)
+
+let rankList = cardList.map((fc) =>
+  fc.fiveCards.map((ca) => (ca.rank === Card.ACE ? Card.KING + 1 : ca.rank))
+)
+console.log(`rankList=${JSON.stringify(rankList)}`)
+
+let pairList = rankList.map(getPairs)
+console.log(`pairList=${JSON.stringify(pairList)}`)
+let pairTransformList = rankList.map(getPairTransform)
+console.log(`pairTransformList=${JSON.stringify(pairTransformList)}`)
+
+let straightScoreList = rankList.map(getStraightScore)
+console.log(`straightScoreList=${JSON.stringify(straightScoreList)}`)
+
+let straightTransformList = rankList.map(getStraightTransform)
+console.log(`straightTransformList=${JSON.stringify(straightTransformList)}`)
+
+let pokerTransformList = rankList.map(pokerTransform)
+console.log(`pokerTransformList=${JSON.stringify(pokerTransformList)}`)
 
 module.exports = pokerTransform
