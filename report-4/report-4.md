@@ -31,7 +31,7 @@ A,2,3,4,5 --> Straight Flush(9),(5) --> [9,5]
 
 
 현재 No Pair, One Pair, Two Pair, Four Card, Straight 가 구현 되어 있음.
-이름 참고로 Flush, Full House, Straight Flush 를 추가로 구현
+이름 참고로 Triple, Flush, Full House, Straight Flush 를 추가로 구현
 
 pokerSort.js의 샘플 데이터 이용
 
