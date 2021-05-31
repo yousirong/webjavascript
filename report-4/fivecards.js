@@ -15,9 +15,19 @@ class FiveCards extends Comparable {
     this.rankInfo = pokerTransform(this)
   }
 
-  compareTo(right) {
-    return this.fiveCards[0].compareTo(right.fiveCards[0])
+  // compareTo(right) {  
+  //     if(this.fiveCards[i].compareTo(right.fiveCards[i]) !== 0){
+  //       return this.fiveCards[i].compareTo(right.fiveCards[i])
+  //     }
+  //   }
+  compareTo(right) {  
+    if(this.rankInfo[i].compareTo(right.rankInfo[i]) !== 0){
+      return this.rankInfo[i].compareTo(right.rankInfo[i])
+    }
   }
+  // compareTo(right) {
+  //   return this.fiveCards[0].compareTo(right.fiveCards[0])
+  // }
 
   toString() {
     let allCardString = this.fiveCards.join(', ')
