@@ -13,7 +13,7 @@ function getPairTransform(fcList) {
   let pairList = getPairs(fcList)
   if (pairList.length === 0) {
     return [1, ...fcList] // no pair
-  } else if (pairList.length === 1) {
+  } else if (pairList.length === 1) {   // one-pair
     return [2, ...pairList, ...fcList.filter((r) => !pairList.includes(r))]
   } else if (pairList.length === 2) {
     // two pair or 4 cards
@@ -28,46 +28,6 @@ function getPairTransform(fcList) {
   return [1, ...fcList] // no pair
 }
 
-// function getPairTransform(fcList) {
-//   //fclist -- list of fiveCards ranks
-//   let pairList = getPairs(fcList)
-//   if (pairList.length === 0) {
-//     a = [1, ...fcList] // no pair
-//     if (a.length == 6){
-//       return a
-//     }else{
-//       return []
-//     }
-//   } else if (pairList.length === 1) {
-//     a = [2, ...pairList, ...fcList.filter((r) => !pairList.includes(r))]
-//     if(a.length == 5){
-//       return a
-//     }else{
-//       return []
-//     }
-//   } else if (pairList.length === 2) {
-//     // two pair or 4 cards
-//     if (pairList[0] !== pairList[1]) {
-//       // two pair
-//       a = [3, ...pairList, ...fcList.filter((r) => !pairList.includes(r))]
-//       if (a.length == 4){
-//         return a
-//       }else{
-//         return []
-//       }
-//     } else if(pairList[0] === pairList[1]){
-//       // 4 cards
-//       a = [8, pairList[0], ...fcList.filter((r) => !pairList.includes(r))]
-//       if(a.length == 3){
-//         return a
-//       }else{
-//         return []
-//       }
-//     }
-//   }
-//   return [1, ...fcList] // no pair
-// }
-
 function changeAceToOne(fcList) {
   //fclist -- list of fiveCards ranks
   let resList = [...fcList]
@@ -79,15 +39,14 @@ function changeAceToOne(fcList) {
   return resList
 }
 
-const isStraight = (list5) =>   //get straight
+const isStraight = (list5) =>   // straight 확인
   list5.reduce(
     (prev, curr, i) => (i === list5.length - 1 ? prev : prev && list5[i] === list5[i + 1] + 1),
     true
   )
 
-function getStraightScore(fcList) {   //get straight
+function getStraightScore(fcList) {   // straight 변환
   //fclist -- list of fiveCards ranks
-
   // return 0 if not straight
   // return fcList[0] if straight
   // return newList[0] if has Ace and changed to 1 is straight
@@ -102,13 +61,13 @@ function getStraightScore(fcList) {   //get straight
   return 0
 }
 
-function getStraightTransform(fcList) {  // get straight
+function getStraightTransform(fcList) {  // staright 출력
   //fclist -- list of fiveCards ranks
   let topVal = getStraightScore(fcList)
   return topVal ? [5, topVal] : []  // [0] -> []변경
 }
 
-function getTriple(list5) {   // get Triple
+function getTriple(list5) {   // 트리플 확인
   if (list5.length < 3) 
   return []
   else {
@@ -120,7 +79,7 @@ function getTriple(list5) {   // get Triple
     }
   }
 }
-function getTripleTransform(fcList) {   // Triple
+function getTripleTransform(fcList) {   // 트리플 변환 후 출력
   //fclist -- list of fiveCards ranks
   let triList = getTriple(fcList)
   //console.log(triList)
@@ -137,7 +96,7 @@ function getTripleTransform(fcList) {   // Triple
   }
 }
 
-function getfullhouseTransform(fcList){
+function getfullhouseTransform(fcList){   // 풀하우스(트리플함수와 페어함수 조합) 확인
   let tripleList = getTriple(fcList)
   tmp = [...fcList.filter((r) => !tripleList.includes(r))]
   // console.log(tmp)
@@ -158,7 +117,7 @@ function getfullhouseTransform(fcList){
   }
 }
 
-function isflush(list5, flushlist){  // Flush 판별
+function isflush(list5, flushlist){  // 플러쉬 확인
   if(list5.length<1){
     return[]
   }else{
@@ -177,7 +136,7 @@ function isflush(list5, flushlist){  // Flush 판별
   
   
 }
-function getFlushTransform(fiveCards, fclist) {   // Flush 얻는 함수
+function getFlushTransform(fiveCards, fclist) {   // 플러쉬 출력
   let flushlist = fiveCards.fiveCards.map((ca) => (ca.suit))
   let i = isflush(fclist,flushlist)
   let p = getStraightScore(i)
@@ -198,8 +157,7 @@ function getstraightFlushTransform(fiveCards, fclist) {   // 스트레이트 Flu
   //console.log(i)
   if (i.length != 0 && p != 0){
     console.log(p)
-    return[9, p]   // 41 ['CL-A ', 'CL-5 ', 'CL-4 ', 'CL-3 ', 'CL-2 '] -- [9,14]
-                      //42 ['HE-A ', 'HE-K ', 'HE-Q ', 'HE-J ', 'HE-10'] -- [9,14] 현재 이상태 인데 내림차순구현 ㄱ
+    return[9, p]  
   }else{
     return[]
   }
