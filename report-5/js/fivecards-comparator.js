@@ -16,7 +16,7 @@ class FiveCardsComparator extends Comparator {
     super()
   }
   compare(fc1, fc2) {
-    return listComp(fc1.rankInfo, fc2.rankInfo, (x, y) => x - y)
+    return listComp(fc1.rankInfo, fc2.rankInfo, (y, x) => x - y)
   }
 }
 

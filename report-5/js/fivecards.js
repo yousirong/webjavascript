@@ -12,8 +12,10 @@ class FiveCards {
     this.rankInfo = pokerTransform(this)
   }
 
-  compareTo(right) {
-    return this.fiveCards[0].compareTo(right.fiveCards[0])
+  compareTo(right) {  
+    if(this.fiveCards[i].compareTo(right.fiveCards[i]) !== 0){
+      return this.fiveCards[i].compareTo(right.fiveCards[i])
+    }
   }
 
   toString() {

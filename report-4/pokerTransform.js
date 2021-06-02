@@ -28,6 +28,12 @@ function getPairTransform(fcList) {
   return [1, ...fcList] // no pair
 }
 
+const isStraight = (list5) =>   // straight 확인
+  list5.reduce(
+    (prev, curr, i) => (i === list5.length - 1 ? prev : prev && list5[i] === list5[i + 1] + 1),
+    true
+  )
+
 function changeAceToOne(fcList) {
   //fclist -- list of fiveCards ranks
   let resList = [...fcList]
@@ -39,11 +45,7 @@ function changeAceToOne(fcList) {
   return resList
 }
 
-const isStraight = (list5) =>   // straight 확인
-  list5.reduce(
-    (prev, curr, i) => (i === list5.length - 1 ? prev : prev && list5[i] === list5[i + 1] + 1),
-    true
-  )
+
 
 function getStraightScore(fcList) {   // straight 변환
   //fclist -- list of fiveCards ranks
@@ -68,53 +70,61 @@ function getStraightTransform(fcList) {  // staright 출력
 }
 
 function getTriple(list5) {   // 트리플 확인
-  if (list5.length < 3) 
-  return []
+  if (list5.length < 3) return []
   else {
-    if (list5[0] == list5[1] && list5[1]== list5[2] && list5[0] == list5[2]) {
+    if (list5[0] == list5[2] && list5[0] == list5[1] && list5[1] == list5[2]) 
       return [list5[0]].concat(getTriple(list5.slice(3, list5.length)))
-    }
-    else {
-      return getTriple(list5.slice(1, list5.length))
-    }
+    else return getTriple(list5.slice(1, list5.length))
   }
 }
+
 function getTripleTransform(fcList) {   // 트리플 변환 후 출력
   //fclist -- list of fiveCards ranks
   let triList = getTriple(fcList)
   //console.log(triList)
-  tmp = [...fcList.filter((r) => !triList.includes(r))]
-  if(triList.length ==1 && (tmp[0] != tmp[1])){
-    a = [4, ...triList, ...fcList.filter((r) => !triList.includes(r))]
-  }else{
-    return[]
-  }
-  if (a.length == 4){
-    return a
-  }else{
-    return []
-  }
-}
-
-function getfullhouseTransform(fcList){   // 풀하우스(트리플함수와 페어함수 조합) 확인
-  let tripleList = getTriple(fcList)
-  tmp = [...fcList.filter((r) => !tripleList.includes(r))]
-  // console.log(tmp)
-  let pairList = getPairs(tmp)
-  if (pairList.length != 0){
-  if(pairList[0] != tripleList[0] && tripleList.length!=0){
-    a = [7,...tripleList, ...pairList]
+  //console.log(tmp)
+  if (triList.length == 1){
+    let tmp = [...fcList.filter((r) => !triList.includes(r))]
+    if (tmp.length ==2){
+      if(tmp[0] != tmp[1]){
+        let a = [4, ...triList, ...fcList.filter((r) => !triList.includes(r))]
+        if (a.length == 4){
+          return a
+          }else{
+            return []
+          }
+      }else{
+        return []
+      }
     }else{
       return []
     }
   }else{
-    return[]
+    return []
   }
-  if (a.length == 3){
-    return a
+  
+}
+
+function getfullhouseTransform(fcList){   // 풀하우스(트리플함수와 페어함수 조합) 확인
+  let tripleList = getTriple(fcList)
+  let tmp = [...fcList.filter((r) => !tripleList.includes(r))]
+  // console.log(tmp)
+  let pairList = getPairs(tmp)
+  if (pairList.length != 0){
+    if(pairList[0] != tripleList[0] && tripleList.length!=0){
+      let a = [7,...tripleList, ...pairList]
+      if (a.length == 3){
+        return a
+        }else{
+          return []
+        }
+    }else{
+      return []
+    }
   }else{
     return []
   }
+  
 }
 
 function isflush(list5, flushlist){  // 플러쉬 확인
@@ -140,10 +150,7 @@ function getFlushTransform(fiveCards, fclist) {   // 플러쉬 출력
   let flushlist = fiveCards.fiveCards.map((ca) => (ca.suit))
   let i = isflush(fclist,flushlist)
   let p = getStraightScore(i)
-  //console.log(i)
   if (i.length != 0 && p == 0){
-    
-    //console.log(p)
     return[6, ...i]
   }else{
     return[]
@@ -154,9 +161,7 @@ function getstraightFlushTransform(fiveCards, fclist) {   // 스트레이트 Flu
   let flushlist = fiveCards.fiveCards.map((ca) => (ca.suit))
   let i = isflush(fclist,flushlist)
   let p = getStraightScore(i)
-  //console.log(i)
   if (i.length != 0 && p != 0){
-    console.log(p)
     return[9, p]  
   }else{
     return[]
@@ -183,5 +188,6 @@ function pokerTransform(fiveCards) {
   
   return pokerRankList
 }
+
 
 module.exports = pokerTransform
