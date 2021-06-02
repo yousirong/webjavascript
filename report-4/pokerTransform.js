@@ -8,8 +8,6 @@ function getPairs(list5) {
     else return getPairs(list5.slice(1, list5.length))
   }
 }
-
-
 function getPairTransform(fcList) {
   //fclist -- list of fiveCards ranks
   let pairList = getPairs(fcList)
@@ -29,6 +27,46 @@ function getPairTransform(fcList) {
   }
   return [1, ...fcList] // no pair
 }
+
+// function getPairTransform(fcList) {
+//   //fclist -- list of fiveCards ranks
+//   let pairList = getPairs(fcList)
+//   if (pairList.length === 0) {
+//     a = [1, ...fcList] // no pair
+//     if (a.length == 6){
+//       return a
+//     }else{
+//       return []
+//     }
+//   } else if (pairList.length === 1) {
+//     a = [2, ...pairList, ...fcList.filter((r) => !pairList.includes(r))]
+//     if(a.length == 5){
+//       return a
+//     }else{
+//       return []
+//     }
+//   } else if (pairList.length === 2) {
+//     // two pair or 4 cards
+//     if (pairList[0] !== pairList[1]) {
+//       // two pair
+//       a = [3, ...pairList, ...fcList.filter((r) => !pairList.includes(r))]
+//       if (a.length == 4){
+//         return a
+//       }else{
+//         return []
+//       }
+//     } else if(pairList[0] === pairList[1]){
+//       // 4 cards
+//       a = [8, pairList[0], ...fcList.filter((r) => !pairList.includes(r))]
+//       if(a.length == 3){
+//         return a
+//       }else{
+//         return []
+//       }
+//     }
+//   }
+//   return [1, ...fcList] // no pair
+// }
 
 function changeAceToOne(fcList) {
   //fclist -- list of fiveCards ranks
@@ -174,16 +212,18 @@ function pokerTransform(fiveCards) {
   let fllist = fiveCards.fiveCards.map((ca) => (ca.suit,ca.rank))
   //fclist -- list of fiveCards ranks
   let pokerRankList = getPairTransform(fclist)  // 숫자pair
-  let tripleList = getTripleTransform(fclist)   // 숫자triple
-  let straightList = getStraightTransform(fclist) // 스트레이트
-  let fullhouseList = getfullhouseTransform(fclist) // 풀하우스
-  let flushlist = getFlushTransform(fiveCards,fclist) // 플러쉬
-  let straightflushlist = getstraightFlushTransform(fiveCards,fclist)  // 스트레이트 플러쉬
-  pokerRankList = flushlist[0] > straightList[0] ? flushlist : fullhouseList
-  // Full house check
-  // Flush check
-  // Straight Flush check
-  return straightflushlist
+  let tripleList = getTripleTransform(fclist)   // 숫자triple 
+  let straightList = getStraightTransform(fclist) // 스트레이트  
+  let fullhouseList = getfullhouseTransform(fclist) // 풀하우스  
+  let flushlist = getFlushTransform(fiveCards,fclist) // 플러쉬 
+  let straightflushlist = getstraightFlushTransform(fiveCards,fclist)  // 스트레이트 플러쉬 
+  pokerRankList = tripleList[0] > pokerRankList[0] ? tripleList : pokerRankList 
+  pokerRankList = straightList[0] > pokerRankList[0] ? straightList : pokerRankList
+  pokerRankList = fullhouseList[0] > pokerRankList[0] ? fullhouseList : pokerRankList
+  pokerRankList = flushlist[0] > pokerRankList[0] ? flushlist : pokerRankList
+  pokerRankList = straightflushlist[0] > pokerRankList[0] ? straightflushlist : pokerRankList
+  
+  return pokerRankList
 }
 
 module.exports = pokerTransform

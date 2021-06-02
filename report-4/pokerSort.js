@@ -83,4 +83,5 @@ printFiveCardsList(list5card)
 let comp = new FiveCardsComparator()
 
 console.log('---sorted use quickSort---')
-printFiveCardsList(quickSort(list5card, comp.compare))
+printFiveCardsList(quickSort(list5card, comp.compare))//rank 비교 하는 부분 compare 함수는 
+//fivecards-comparator.js 에있음
